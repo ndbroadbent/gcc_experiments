@@ -1,0 +1,12 @@
+#!/bin/bash
+for LEVEL in $(seq 0 3); do
+  echo "Compiling with GCC: -O$LEVEL... (Assembly at not_a_and_b.o$LEVEL.s)"
+  gcc -O$LEVEL -g not_a_and_b.c -o build/not_a_and_b.o$LEVEL
+  objdump -d -S build/not_a_and_b.o$LEVEL > not_a_and_b.o$LEVEL.s
+done
+
+for LEVEL in $(seq 0 3); do
+  echo "Compiling with C99: -O$LEVEL... (Assembly at not_a_and_b.o$LEVEL.s)"
+  c99 -O$LEVEL -g not_a_and_b.c -o build/not_a_and_b.c99.o$LEVEL
+  objdump -d -S build/not_a_and_b.c99.o$LEVEL > not_a_and_b.c99.o$LEVEL.s
+done
