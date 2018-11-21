@@ -1,0 +1,4 @@
+#!/bin/bash
+gcc -g benchmarks/not_a_and_b.c -o ./benchmarks/not_a_and_b.o
+
+./benchmarks/not_a_and_b.o

@@ -178,6 +178,23 @@ https://twitter.com/chordbug/status/1065295501535469569
 
 C doesn't have booleans, only integers. `#include <stdbool.h>` doesn't magically add a new boolean type, it just adds some macros for `true => 1` and `false => 0`. But the underlying type is still an integer, so GCC can't make this optimization based on boolean logic, because it doesn't know the values are only going to be `0` and `1`.
 
+
+---
+
+## UPDATE - This optimization is not actually faster
+
+Run the benchmark with `./scripts/bench`:
+
+```
+$ ./scripts/bench
+[./benchmarks/not_a_and_b.o] '!a && b' finished in: 1.969807. (counter was: -50012866)
+[./benchmarks/not_a_and_b.o] 'a < b' finished in: 1.701853. (counter was: -50006406)
+```
+
+
+`!a && b` is a little bit slower than `a < b` on average, because the `cmp` instruction takes more clock cycles than a `test`. And it can short-circuit if `!a` is false (`jne`), so it doesn't need to check `b`.
+
+
 ---
 
 # Extra Credit
