@@ -1,4 +1,5 @@
 #!/bin/bash
-gcc -g benchmarks/not_a_and_b.c -o ./benchmarks/not_a_and_b.o
-
-./benchmarks/not_a_and_b.o
+for LEVEL in $(seq 0 3); do
+  gcc -O$LEVEL -g benchmarks/not_a_and_b.c -o ./benchmarks/not_a_and_b.o$LEVEL.o
+  ./benchmarks/not_a_and_b.o$LEVEL.o
+done

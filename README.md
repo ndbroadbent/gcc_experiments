@@ -181,19 +181,25 @@ C doesn't have booleans, only integers. `#include <stdbool.h>` doesn't magically
 
 ---
 
-## UPDATE - This optimization is not actually faster
+## Benchmarks
 
 Run the benchmark with `./scripts/bench`:
 
 ```
 $ ./scripts/bench
-[./benchmarks/not_a_and_b.o] '!a && b' finished in: 1.969807. (counter was: -50012866)
-[./benchmarks/not_a_and_b.o] 'a < b' finished in: 1.701853. (counter was: -50006406)
+[./benchmarks/not_a_and_b.o0.o] '!a && b' finished in: 3.982497. (counter was: -100007888)
+[./benchmarks/not_a_and_b.o0.o] 'a < b' finished in: 3.546567. (counter was: -100012092)
+[./benchmarks/not_a_and_b.o1.o] '!a && b' finished in: 2.739054. (counter was: -100020832)
+[./benchmarks/not_a_and_b.o1.o] 'a < b' finished in: 2.665446. (counter was: -100003636)
+[./benchmarks/not_a_and_b.o2.o] '!a && b' finished in: 2.692147. (counter was: -100018324)
+[./benchmarks/not_a_and_b.o2.o] 'a < b' finished in: 2.702649. (counter was: -99991322)
+[./benchmarks/not_a_and_b.o3.o] '!a && b' finished in: 2.696871. (counter was: -100019844)
+[./benchmarks/not_a_and_b.o3.o] 'a < b' finished in: 2.692370. (counter was: -100003138)
 ```
 
+These benchmarks perform 200,000,000 iterations and compare two randomly generated boolean values.
 
-`!a && b` is a little bit slower than `a < b` on average, because the `cmp` instruction takes more clock cycles than a `test`. And it can short-circuit if `!a` is false (`jne`), so it doesn't need to check `b`.
-
+`!a && b` seems to be a tiny bit slower than `a < b` on average even with `-O3` optimizations.
 
 ---
 

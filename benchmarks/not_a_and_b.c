@@ -15,7 +15,7 @@ int main(int argc, const char* argv[]) {
   startTime = (float)clock() / CLOCKS_PER_SEC;
   counter = 0;
 
-  for (i = 0; i < 100000000; i++) {
+  for (i = 0; i < 200000000; i++) {
     a = rand() & 1;
     b = rand() & 1;
 
@@ -38,7 +38,7 @@ int main(int argc, const char* argv[]) {
   startTime = (float)clock() / CLOCKS_PER_SEC;
   counter = 0;
 
-  for (i = 0; i < 100000000; i++) {
+  for (i = 0; i < 200000000; i++) {
     a = rand() & 1;
     b = rand() & 1;
 
